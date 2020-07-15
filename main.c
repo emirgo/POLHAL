@@ -14,9 +14,9 @@ int main(void)
 	while(1)
 	{
 		GPIOC->BSRR = (1 << 13);
-		for(int i = 0; i <= 50000000; i++);
+		for(volatile int i = 0; i < 0xfffff; ++i);
 		GPIOC->BSRR = (1 << (13 + 16));
-		for(int i = 0; i <= 50000000; i++);
+		for(volatile int i = 0; i < 0xfffff; ++i);
 	}
 	
 	return 0;
