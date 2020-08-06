@@ -27,39 +27,10 @@ Project File Date:  08/06/2020
 <h2>Output:</h2>
 *** Using Compiler 'V6.14', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
 Build target 'Target 1'
-main.c(3): warning: In file included from...
-./_POLHAL.h(41): warning: no previous prototype for function 'setPinMode' [-Wmissing-prototypes]
-void setPinMode()
-     ^
-./_POLHAL.h(41): note: declare 'static' if the function is not intended to be used outside of this translation unit
-void setPinMode()
-^
-static 
-main.c(5): warning: this function declaration is not a prototype [-Wstrict-prototypes]
-void testBlink();
-              ^
-               void
-main.c(15): warning: 'return' will never be executed [-Wunreachable-code-return]
-        return 0;
-               ^
-main.c(37): warning: no newline at end of file [-Wnewline-eof]
-}
- ^
-main.c(21): warning: no previous prototype for function 'testBlink' [-Wmissing-prototypes]
-void testBlink()
-     ^
-main.c(5): note: this declaration is not a prototype; add 'void' to make it a prototype for a zero-parameter function
-void testBlink();
-     ^
-               void
-main.c(22): warning: function 'testBlink' could be declared with attribute 'noreturn' [-Wmissing-noreturn]
-{
-^
-6 warnings generated.
-compiling main.c...
+compiling _POLHAL.c...
 linking...
-Program Size: Code=500 RO-data=468 RW-data=0 ZI-data=1632  
-".\polhal.axf" - 0 Error(s), 6 Warning(s).
+Program Size: Code=632 RO-data=468 RW-data=0 ZI-data=1632  
+".\polhal.axf" - 0 Error(s), 0 Warning(s).
 
 <h2>Software Packages used:</h2>
 
