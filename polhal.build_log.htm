@@ -17,20 +17,17 @@ Library Manager: ArmAr.exe V6.14
 Hex Converter:   FromElf.exe V6.14
 CPU DLL:         SARMCM3.DLL V5.30.0.0
 Dialog DLL:      DCM.DLL V1.17.3.0
-Target DLL:      UL2CM3.DLL V1.163.3.0
+Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.0.7.0
 Dialog DLL:      TCM.DLL V1.42.0.0
  
 <h2>Project:</h2>
 C:\Dev\HAL\POLHAL\polhal.uvprojx
-Project File Date:  07/22/2020
+Project File Date:  08/06/2020
 
 <h2>Output:</h2>
 *** Using Compiler 'V6.14', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
 Build target 'Target 1'
 main.c(3): warning: In file included from...
-./_POLHAL.h(46): warning: no newline at end of file [-Wnewline-eof]
-#endif
-      ^
 ./_POLHAL.h(41): warning: no previous prototype for function 'setPinMode' [-Wmissing-prototypes]
 void setPinMode()
      ^
@@ -38,17 +35,31 @@ void setPinMode()
 void setPinMode()
 ^
 static 
-main.c(14): warning: no newline at end of file [-Wnewline-eof]
-}
- ^
-main.c(13): warning: 'return' will never be executed [-Wunreachable-code-return]
+main.c(5): warning: this function declaration is not a prototype [-Wstrict-prototypes]
+void testBlink();
+              ^
+               void
+main.c(15): warning: 'return' will never be executed [-Wunreachable-code-return]
         return 0;
                ^
-4 warnings generated.
+main.c(37): warning: no newline at end of file [-Wnewline-eof]
+}
+ ^
+main.c(21): warning: no previous prototype for function 'testBlink' [-Wmissing-prototypes]
+void testBlink()
+     ^
+main.c(5): note: this declaration is not a prototype; add 'void' to make it a prototype for a zero-parameter function
+void testBlink();
+     ^
+               void
+main.c(22): warning: function 'testBlink' could be declared with attribute 'noreturn' [-Wmissing-noreturn]
+{
+^
+6 warnings generated.
 compiling main.c...
 linking...
-Program Size: Code=424 RO-data=468 RW-data=0 ZI-data=1632  
-".\polhal.axf" - 0 Error(s), 4 Warning(s).
+Program Size: Code=500 RO-data=468 RW-data=0 ZI-data=1632  
+".\polhal.axf" - 0 Error(s), 6 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -75,8 +86,8 @@ Package Vendor: Keil
 
    * Component: Keil::Device:Startup:2.6.3
       Source file:   MDK\Device\Source\ARM\STM32F446xx_OPT.s
-      Source file:   MDK\Device\Source\ARM\STM32F4xx_OTP.s
       Include file:  Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h
+      Source file:   MDK\Device\Source\ARM\STM32F4xx_OTP.s
       Source file:   Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\arm\startup_stm32f446xx.s
       Source file:   Drivers\CMSIS\Device\ST\STM32F4xx\Source\Templates\system_stm32f4xx.c
 Build Time Elapsed:  00:00:00
