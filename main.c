@@ -2,7 +2,7 @@
 
 #include "_POLHAL.h"
 
-void testBlink();
+void testBlink(void);
 
 int main(void)
 {
@@ -18,7 +18,7 @@ int main(void)
 /* Register examples */
 
 // On board blink
-void testBlink()
+void testBlink(void)
 {
 	// Enable clock for GPIOA
 	RCC->AHB1ENR |= 1;
@@ -30,8 +30,8 @@ void testBlink()
 	while (1)
 	{
 		GPIOA->ODR ^= 1 << 5;
+		// Silly test delay :]
 		volatile int i = 0;
 		for (i = 0; i < 0xfffff; i++);
 	}
-	
 }
