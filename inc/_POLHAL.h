@@ -61,7 +61,6 @@ typedef struct
  * 		GPIO CONFIGURATION		*
  */
 void configure_pin(GPIO_TypeDef *gpio, uint32_t pinNumber, uint32_t pinMode);
-
 void configure_pin_speed(GPIO_TypeDef *gpio, uint32_t pinNumber, uint32_t pinSpeed, uint32_t mode);
 
 
