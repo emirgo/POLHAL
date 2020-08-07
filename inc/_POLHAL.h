@@ -5,6 +5,9 @@
 #include "stm32f4xx.h"                  // Device header
 #include "stdio.h"
 
+#define LOW  0
+#define HIGH 1
+
 // Port naming
 #define PORTA GPIOA
 #define PORTB GPIOB
@@ -54,8 +57,18 @@ typedef struct
 
 } GPIO_TYPE;
 
-void configure_pin(GPIO_TypeDef *port, uint32_t pinNumber, uint32_t pinMode);
+/********************************
+ * 		GPIO CONFIGURATION		*
+ */
+void configure_pin(GPIO_TypeDef *gpio, uint32_t pinNumber, uint32_t pinMode);
 
-void configure_pin_speed(GPIO_TypeDef *port, uint32_t pinNumber, uint32_t pinSpeed, uint32_t mode);
+void configure_pin_speed(GPIO_TypeDef *gpio, uint32_t pinNumber, uint32_t pinSpeed, uint32_t mode);
+
+
+/************************
+ * 		GPIO PIN		*
+ */
+void gpio_write(GPIO_TypeDef *gpio, uint32_t pinNumber, uint8_t state);
+void gpio_toggle(GPIO_TypeDef *gpio, uint32_t pinNumber);
 
 #endif
