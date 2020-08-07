@@ -1,5 +1,5 @@
 ## POLHAL
-#### Open source HAL for stm32f4xx.h 
+#### Open source HAL for stm32f4xx
 Design of this HAL is currently based on stm32f446RET6. If need be it can be extended further. <br><br>
 Road map:<br>
 <ul>
