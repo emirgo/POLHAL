@@ -26,7 +26,7 @@ void testBlink(void)
 {
 	while (1)
 	{
-		GPIOA->ODR ^= 1 << 5;
+		gpio_toggle(GPIOA, 5);
 		// Silly test delay :]
 		volatile int i = 0;
 		for (i = 0; i < 0xfffff; i++);

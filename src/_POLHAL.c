@@ -69,5 +69,5 @@ void gpio_write(GPIO_TypeDef *gpio, uint32_t pinNumber, uint8_t state)
 void gpio_toggle(GPIO_TypeDef *gpio, uint32_t pinNumber)
 {
 	// TODO: Replace ODR with BSRR
-	gpio->ODR ^= pinNumber;
+	gpio->ODR ^= 1 << pinNumber;
 }
