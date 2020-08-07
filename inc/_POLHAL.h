@@ -16,6 +16,7 @@
 #define PORTE GPIOE
 #define PORTF GPIOF
 #define PORTG GPIOG
+#define PORTH GPIOH
 
 // Pin modes
 #define OUTPUT_MODE							((uint32_t) 0x01)
@@ -59,14 +60,15 @@ typedef struct
 
 /********************************
  * 		GPIO CONFIGURATION		*
- */
+ *******************************/
+void gpio_init(GPIO_TYPE gpioType);
 void configure_pin(GPIO_TypeDef *gpio, uint32_t pinNumber, uint32_t pinMode);
 void configure_pin_speed(GPIO_TypeDef *gpio, uint32_t pinNumber, uint32_t pinSpeed, uint32_t mode);
 
 
 /************************
  * 		GPIO PIN		*
- */
+ ***********************/
 void gpio_write(GPIO_TypeDef *gpio, uint32_t pinNumber, uint8_t state);
 void gpio_toggle(GPIO_TypeDef *gpio, uint32_t pinNumber);
 

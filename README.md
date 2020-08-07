@@ -3,7 +3,8 @@
 Design of this HAL is currently based on stm32f446RET6. If need be it can be extended further. <br><br>
 Road map:<br>
 <ul>
-	<li>GPIO</li>
+	<li><strike>GPIO</strike></li>
+	<li>GPIO Interrupts</li>
 	<li>Print</li>
 	<li>Timers</li>
 	<li>PWM</li>

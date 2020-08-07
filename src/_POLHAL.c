@@ -1,6 +1,26 @@
 // Author: Emirhan Gocturk
 #include "_POLHAL.h"
 
+void gpio_init(GPIO_TYPE gpioType)
+{
+	if (gpioType.port == PORTA)
+		GPIO_CLOCK_ENABLE_PORTA;
+	else if (gpioType.port == PORTB)
+		GPIO_CLOCK_ENABLE_PORTB;
+	else if (gpioType.port == PORTC)
+		GPIO_CLOCK_ENABLE_PORTC;
+	else if (gpioType.port == PORTD)
+		GPIO_CLOCK_ENABLE_PORTD;
+	else if (gpioType.port == PORTE)
+		GPIO_CLOCK_ENABLE_PORTE;
+	else if (gpioType.port == PORTF)
+		GPIO_CLOCK_ENABLE_PORTF;
+	else if (gpioType.port == PORTG)
+		GPIO_CLOCK_ENABLE_PORTG;
+	else if (gpioType.port == PORTH)
+			GPIO_CLOCK_ENABLE_PORTH;
+}
+
 void configure_pin(GPIO_TypeDef *gpio, uint32_t pinNumber, uint32_t pinMode)
 {
 	// Set pin mode

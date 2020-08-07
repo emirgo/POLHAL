@@ -6,7 +6,13 @@ void testBlink(void);
 
 int main(void)
 {
-	GPIO_CLOCK_ENABLE_PORTA;
+	GPIO_TYPE LED_GREEN_Pin;
+	LED_GREEN_Pin.port = GPIOA;
+	LED_GREEN_Pin.mode = OUTPUT_MODE;
+	LED_GREEN_Pin.pin = 5;
+	LED_GREEN_Pin.speed = GPIO_SPEED_HIGH;
+
+	gpio_init(LED_GREEN_Pin);
 
 	configure_pin(GPIOA, 5, OUTPUT_MODE);
 	configure_pin_speed(GPIOA, 5, GPIO_SPEED_HIGH, OUTPUT_MODE);
@@ -24,6 +30,7 @@ int main(void)
 // On board blink
 void testBlink(void)
 {
+	// TODO: Enhance with init code for the pin
 	while (1)
 	{
 		gpio_toggle(GPIOA, 5);
