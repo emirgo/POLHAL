@@ -2,20 +2,12 @@
 
 #include "_POLHAL.h"
 
+void testInitBlink(void);
 void testBlink(void);
 
 int main(void)
 {
-	GPIO_TYPE LED_GREEN_Pin;
-	LED_GREEN_Pin.port = GPIOA;
-	LED_GREEN_Pin.mode = OUTPUT_MODE;
-	LED_GREEN_Pin.pin = 5;
-	LED_GREEN_Pin.speed = GPIO_SPEED_HIGH;
-
-	gpio_init(LED_GREEN_Pin);
-
-	configure_pin(GPIOA, 5, OUTPUT_MODE);
-	configure_pin_speed(GPIOA, 5, GPIO_SPEED_HIGH, OUTPUT_MODE);
+	testInitBlink();
 
 	while(1)
 	{
@@ -25,12 +17,27 @@ int main(void)
 	return 0;
 }
 
-/* Register examples */
+
+/* Examples */
 
 // On board blink
+// BEGIN
+void testInitBlink(void)
+{
+	// Configure pin type
+	GPIO_TYPE LED_GREEN_Pin;
+	LED_GREEN_Pin.port = GPIOA;
+	LED_GREEN_Pin.mode = OUTPUT_MODE;
+	LED_GREEN_Pin.pin = 5;
+	LED_GREEN_Pin.speed = GPIO_SPEED_HIGH;
+
+	// Pass configured pin to initialize
+	gpio_init(LED_GREEN_Pin);
+}
+
 void testBlink(void)
 {
-	// TODO: Enhance with init code for the pin
+	// Requires testInitBlink
 	while (1)
 	{
 		gpio_toggle(GPIOA, 5);
@@ -39,3 +46,4 @@ void testBlink(void)
 		for (i = 0; i < 0xfffff; i++);
 	}
 }
+// END

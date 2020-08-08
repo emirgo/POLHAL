@@ -19,6 +19,9 @@ void gpio_init(GPIO_TYPE gpioType)
 		GPIO_CLOCK_ENABLE_PORTG;
 	else if (gpioType.port == PORTH)
 			GPIO_CLOCK_ENABLE_PORTH;
+
+	configure_pin(gpioType.port, gpioType.pin, gpioType.mode);
+	configure_pin_speed(gpioType.port, gpioType.pin, gpioType.speed, gpioType.mode);
 }
 
 void configure_pin(GPIO_TypeDef *gpio, uint32_t pinNumber, uint32_t pinMode)
