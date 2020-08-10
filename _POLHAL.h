@@ -35,7 +35,7 @@
 
 // High bit positions for CRH (CNF and MODE)
 #define CNF_POS_BIT1	(PINPOS[pinNumber] + 2)
-#define CNF_POS_BIT2	(PINPOS[pinNUmber] + 3)
+#define CNF_POS_BIT2	(PINPOS[pinNumber] + 3)
 
 // GPIO Config structure
 typedef struct
@@ -48,5 +48,12 @@ typedef struct
 	uint32_t speed;
 	uint32_t alt_func;
 } GPIO_TYPE;
+
+
+/******************************
+			GPIO CONFIGURATION
+*******************************/
+void configure_pin(GPIO_TypeDef *gpio, uint32_t pinNumber, uint32_t modeType);
+
 
 #endif

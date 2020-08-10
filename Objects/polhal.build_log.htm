@@ -27,21 +27,28 @@ Project File Date:  08/10/2020
 <h2>Output:</h2>
 *** Using Compiler 'V6.14', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
 Build target 'Target 1'
-main.c(1): warning: In file included from...
-./_POLHAL.h(37): warning: no newline at end of file [-Wnewline-eof]
-#endif
-      ^
 main.c(13): warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
         GPIOC->CRH &= ~((1 << 22) | (1 << 23));
                    ~~ ^~~~~~~~~~~~~~~~~~~~~~~~
 main.c(22): warning: 'return' will never be executed [-Wunreachable-code-return]
         return 0;
                ^
-3 warnings generated.
+2 warnings generated.
 compiling main.c...
+_POLHAL.c(10): warning: no previous extern declaration for non-static variable 'PINPOS' [-Wmissing-variable-declarations]
+uint32_t PINPOS[16] = {
+         ^
+_POLHAL.c(10): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+uint32_t PINPOS[16] = {
+^
+_POLHAL.c(59): warning: no newline at end of file [-Wnewline-eof]
+}
+ ^
+2 warnings generated.
+compiling _POLHAL.c...
 linking...
 Program Size: Code=628 RO-data=252 RW-data=0 ZI-data=1632  
-".\Objects\polhal.axf" - 0 Error(s), 3 Warning(s).
+".\Objects\polhal.axf" - 0 Error(s), 4 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -68,11 +75,11 @@ Package Vendor: Keil
    * Component: ARM::CMSIS:CORE:5.4.0
 
    * Component: Keil::Device:Startup:1.0.0
+      Source file:   Device\Source\system_stm32f10x.c
+      Source file:   Device\Source\ARM\STM32F1xx_OPT.s
       Source file:   Device\Source\ARM\startup_stm32f10x_md.s
       Include file:  RTE_Driver\Config\RTE_Device.h
-      Source file:   Device\Source\ARM\STM32F1xx_OPT.s
-      Source file:   Device\Source\system_stm32f10x.c
-Build Time Elapsed:  00:00:01
+Build Time Elapsed:  00:00:00
 </pre>
 </body>
 </html>
