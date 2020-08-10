@@ -24,6 +24,7 @@ Roadmap:<br>
 <br>
 The sole reason I develop this HAL is for my own use and because I can. There is no logical reason behind it.<br>
 <br>
+
 ## Documentation
 <br>
 Documentation will be filled in here as the roadmap progresses. Soon I will be writing the GPIO library documentation.
