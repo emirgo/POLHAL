@@ -1,11 +1,11 @@
 # POLHAL
 ### Open source HAL for stm32f10x line of microcontrollers
 <br>
-Currently: GPIO
+Currently: GPIO Interrupts
 <br>
 Roadmap:<br>
 <ul>
-	<li>GPIO</li>
+	<li><strike>GPIO</strike></li>
 	<li>GPIO Interrupts</li>
 	<li>Print for debugging</li>
 	<li>Standby/sleep mode</li>
