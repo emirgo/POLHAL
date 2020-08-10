@@ -6,6 +6,9 @@
 	#define __STM32F10x_H
 #endif
 
+#define LOW		0
+#define HIGH	1
+
 // Pin mode
 #define OUTPUT_MODE	((uint32_t) 0x01)
 #define INPUT_MODE	((uint32_t) 0x02)
@@ -22,9 +25,9 @@
 #define OUTPUT_ALT_FUNCTION_OPEN_DRAIN	((uint32_t) 0x03)	// Open drain
 
 // Pin speeds
-#define SPEED_2MHZ		((uint32_t) 0x00)
+#define SPEED_2MHZ		((uint32_t) 0x02)
 #define SPEED_10MHZ		((uint32_t) 0x01)
-#define SPEED_50MHZ		((uint32_t) 0x02)
+#define SPEED_50MHZ		((uint32_t) 0x03)
 
 // Clock enable
 #define GPIO_CLOCK_ENABLE_ALT_FUNCTION	(RCC->APB2ENR |= (1 << 0))
@@ -33,7 +36,9 @@
 #define GPIO_CLOCK_ENABLE_GPIOC					(RCC->APB2ENR |= (1 << 4))
 #define GPIO_CLOCK_ENABLE_GPIOD					(RCC->APB2ENR |= (1 << 5))
 
-// High bit positions for CRH (CNF and MODE)
+// High bit positions for CRH, when you add 
+// +2 or +3 to offset of the first bit of mode
+// you can manipulate CNF bits
 #define CNF_POS_BIT1	(PINPOS[pinNumber] + 2)
 #define CNF_POS_BIT2	(PINPOS[pinNumber] + 3)
 
@@ -53,7 +58,14 @@ typedef struct
 /******************************
 			GPIO CONFIGURATION
 *******************************/
-void configure_pin(GPIO_TypeDef *gpio, uint32_t pinNumber, uint32_t modeType);
+void gpio_init(GPIO_TYPE gpioType);
+void configure_pin(GPIO_TypeDef *gpio, uint32_t pinNumber, uint32_t mode);
+void config_pin_speed(GPIO_TypeDef *gpio, uint32_t pinNumber, uint32_t pinSpeed, uint32_t modeType);
 
+/******************************
+			GPIO PIN FUNCTIONS			
+*******************************/
+void gpio_write(GPIO_TypeDef *gpio, uint32_t pinNumber, uint32_t state);
+void gpio_toggle(GPIO_TypeDef *gpio, uint32_t pinNumber);
 
 #endif
