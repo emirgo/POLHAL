@@ -89,7 +89,7 @@ Discarded input sections
  .group         0x0000000000000000        0xc src/POLHAL.o
  .group         0x0000000000000000        0xc src/POLHAL.o
  .text          0x0000000000000000        0x0 src/POLHAL.o
- .data          0x0000000000000000       0x40 src/POLHAL.o
+ .data          0x0000000000000000        0x0 src/POLHAL.o
  .bss           0x0000000000000000        0x0 src/POLHAL.o
  .text._ZN6POLHALC2Ev
                 0x0000000000000000       0x20 src/POLHAL.o
@@ -108,8 +108,8 @@ Discarded input sections
  .text._Z11gpio_toggleP12GPIO_TypeDefm
                 0x0000000000000000       0x26 src/POLHAL.o
  .rodata        0x0000000000000000       0x10 src/POLHAL.o
- .debug_info    0x0000000000000000      0x662 src/POLHAL.o
- .debug_abbrev  0x0000000000000000      0x292 src/POLHAL.o
+ .debug_info    0x0000000000000000      0x6a8 src/POLHAL.o
+ .debug_abbrev  0x0000000000000000      0x298 src/POLHAL.o
  .debug_aranges
                 0x0000000000000000       0x58 src/POLHAL.o
  .debug_ranges  0x0000000000000000       0x48 src/POLHAL.o
@@ -131,7 +131,7 @@ Discarded input sections
  .debug_macro   0x0000000000000000       0x43 src/POLHAL.o
  .debug_macro   0x0000000000000000       0x82 src/POLHAL.o
  .debug_line    0x0000000000000000      0x485 src/POLHAL.o
- .debug_str     0x0000000000000000    0x5645d src/POLHAL.o
+ .debug_str     0x0000000000000000    0x5646d src/POLHAL.o
  .comment       0x0000000000000000       0x80 src/POLHAL.o
  .debug_frame   0x0000000000000000      0x14c src/POLHAL.o
  .ARM.attributes
@@ -153,7 +153,7 @@ Discarded input sections
  .group         0x0000000000000000        0xc src/main.o
  .group         0x0000000000000000        0xc src/main.o
  .text          0x0000000000000000        0x0 src/main.o
- .data          0x0000000000000000       0x40 src/main.o
+ .data          0x0000000000000000        0x0 src/main.o
  .bss           0x0000000000000000        0x0 src/main.o
  .debug_macro   0x0000000000000000      0xb44 src/main.o
  .debug_macro   0x0000000000000000       0x28 src/main.o
@@ -756,17 +756,17 @@ LOAD /home/heurisitk/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-no
                 0x000000000000037a       0x1d /home/heurisitk/Ac6/SystemWorkbench/plugins/fr.ac6.mcu.externaltools.arm-none.linux64_1.17.0.201812190825/tools/compiler/bin/../lib/gcc/arm-none-eabi/7.3.1/thumb/v7-m/crtn.o
 OUTPUT(POLHAL.elf elf32-littlearm)
 
-.debug_info     0x0000000000000000     0x14fd
- .debug_info    0x0000000000000000      0x1c4 src/main.o
- .debug_info    0x00000000000001c4      0xf2e src/syscalls.o
- .debug_info    0x00000000000010f2      0x3e9 src/system_stm32f1xx.o
- .debug_info    0x00000000000014db       0x22 startup/startup_stm32.o
+.debug_info     0x0000000000000000     0x1461
+ .debug_info    0x0000000000000000      0x128 src/main.o
+ .debug_info    0x0000000000000128      0xf2e src/syscalls.o
+ .debug_info    0x0000000000001056      0x3e9 src/system_stm32f1xx.o
+ .debug_info    0x000000000000143f       0x22 startup/startup_stm32.o
 
-.debug_abbrev   0x0000000000000000      0x4ba
- .debug_abbrev  0x0000000000000000       0xca src/main.o
- .debug_abbrev  0x00000000000000ca      0x2aa src/syscalls.o
- .debug_abbrev  0x0000000000000374      0x134 src/system_stm32f1xx.o
- .debug_abbrev  0x00000000000004a8       0x12 startup/startup_stm32.o
+.debug_abbrev   0x0000000000000000      0x484
+ .debug_abbrev  0x0000000000000000       0x94 src/main.o
+ .debug_abbrev  0x0000000000000094      0x2aa src/syscalls.o
+ .debug_abbrev  0x000000000000033e      0x134 src/system_stm32f1xx.o
+ .debug_abbrev  0x0000000000000472       0x12 startup/startup_stm32.o
 
 .debug_aranges  0x0000000000000000      0x120
  .debug_aranges
@@ -839,14 +839,14 @@ OUTPUT(POLHAL.elf elf32-littlearm)
  .debug_line    0x00000000000009ee      0x40c src/system_stm32f1xx.o
  .debug_line    0x0000000000000dfa       0x7c startup/startup_stm32.o
 
-.debug_str      0x0000000000000000    0x5b401
- .debug_str     0x0000000000000000    0x55f00 src/main.o
-                                      0x5615e (size before relaxing)
- .debug_str     0x0000000000055f00     0x5399 src/syscalls.o
+.debug_str      0x0000000000000000    0x5b3c0
+ .debug_str     0x0000000000000000    0x55eb9 src/main.o
+                                      0x560f0 (size before relaxing)
+ .debug_str     0x0000000000055eb9     0x5399 src/syscalls.o
                                        0x855e (size before relaxing)
- .debug_str     0x000000000005b299      0x13f src/system_stm32f1xx.o
+ .debug_str     0x000000000005b252      0x145 src/system_stm32f1xx.o
                                       0x55ac0 (size before relaxing)
- .debug_str     0x000000000005b3d8       0x29 startup/startup_stm32.o
+ .debug_str     0x000000000005b397       0x29 startup/startup_stm32.o
                                          0x4a (size before relaxing)
 
 .comment        0x0000000000000000       0x7f

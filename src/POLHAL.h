@@ -45,8 +45,8 @@
 // +2 or +3 to offset of the first bit of mode
 // you can manipulate CNF bits
 // TODO: Fix :)
-#define CNF_POS_BIT1	(PINPOS[pinNumber] + 2)
-#define CNF_POS_BIT2	(PINPOS[pinNumber] + 3)
+#define CNF_POS_BIT1	(POLHAL::PINPOS[pinNumber] + 2)
+#define CNF_POS_BIT2	(POLHAL::PINPOS[pinNumber] + 3)
 
 // GPIO Config structure
 typedef struct
@@ -62,6 +62,8 @@ typedef struct
 
 class POLHAL {
 public:
+
+
 	POLHAL();
 	virtual ~POLHAL();
 
@@ -72,25 +74,28 @@ public:
 	static void gpio_write(GPIO_TypeDef *gpio, uint32_t pinNumber, uint32_t state);
 	static void gpio_toggle(GPIO_TypeDef *gpio, uint32_t pinNumber);
 
+public:
+	static constexpr uint32_t PINPOS[16] = {
+					(0x00),
+					(0x04),
+					(0x08),
+					(0x0C),
+					(0x10),
+					(0x14),
+					(0x18),
+					(0x1C),
+					(0x00),
+					(0x04),
+					(0x08),
+					(0x0C),
+					(0x10),
+					(0x14),
+					(0x18),
+					(0x1C)
+		};
+
 private:
-	uint32_t PINPOS[16] = {
-			(0x00),
-			(0x04),
-			(0x08),
-			(0x0C),
-			(0x10),
-			(0x14),
-			(0x18),
-			(0x1C),
-			(0x00),
-			(0x04),
-			(0x08),
-			(0x0C),
-			(0x10),
-			(0x14),
-			(0x18),
-			(0x1C)
-	};
+
 
 
 };

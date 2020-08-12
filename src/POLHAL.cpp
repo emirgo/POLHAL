@@ -96,22 +96,22 @@ void config_pin_speed(GPIO_TypeDef *gpio, uint32_t pinNumber, uint32_t pinSpeed,
 	{
 		if (mode == INPUT_MODE)
 		{
-			gpio->CRH &= ~(1 << (PINPOS[pinNumber]) | 1 << (PINPOS[pinNumber]) + 1);
+			gpio->CRH &= ~(1 << (POLHAL::PINPOS[pinNumber]) | 1 << (POLHAL::PINPOS[pinNumber]) + 1);
 		}
 		else
 		{
-			gpio->CRH |= (pinSpeed << (PINPOS[pinNumber]));
+			gpio->CRH |= (pinSpeed << (POLHAL::PINPOS[pinNumber]));
 		}
 	}
 	else
 	{
 		if (mode == INPUT_MODE)
 		{
-			gpio->CRL &= ~(1 << (PINPOS[pinNumber]) | 1 << (PINPOS[pinNumber]) + 1);
+			gpio->CRL &= ~(1 << (POLHAL::PINPOS[pinNumber]) | 1 << (POLHAL::PINPOS[pinNumber]) + 1);
 		}
 		else
 		{
-			gpio->CRL |= (pinSpeed << (PINPOS[pinNumber]));
+			gpio->CRL |= (pinSpeed << (POLHAL::PINPOS[pinNumber]));
 		}
 	}
 }
