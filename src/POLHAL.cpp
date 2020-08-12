@@ -1,9 +1,19 @@
 /*
- * POLHAL.cpp
- *
- *  Created on: Aug 12, 2020
- *      Author: heurisitk
- */
+	Copyright 2020 Emirhan Gocturk
+
+	This program is free software: you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+
+	You should have received a copy of the GNU General Public License
+	along with this program.  If not, see <https://www.gnu.org/licenses/>.
+*/
 
 #include "POLHAL.h"
 
@@ -40,7 +50,7 @@ void POLHAL::gpio_init(GPIO_TYPE gpioType)
 	config_pin_speed(gpioType.gpio, gpioType.pin, gpioType.speed, gpioType.mode_type);
 }
 
-void configure_pin(GPIO_TypeDef *gpio, uint32_t pinNumber, uint32_t mode)
+void POLHAL::configure_pin(GPIO_TypeDef *gpio, uint32_t pinNumber, uint32_t mode)
 {
 	// Control high register
 	if (pinNumber >= 8)
@@ -90,33 +100,33 @@ void configure_pin(GPIO_TypeDef *gpio, uint32_t pinNumber, uint32_t mode)
 	}
 }
 
-void config_pin_speed(GPIO_TypeDef *gpio, uint32_t pinNumber, uint32_t pinSpeed, uint32_t mode)
+void POLHAL::config_pin_speed(GPIO_TypeDef *gpio, uint32_t pinNumber, uint32_t pinSpeed, uint32_t modeType)
 {
 	if (pinNumber >= 8)
 	{
-		if (mode == INPUT_MODE)
+		if (modeType == INPUT_MODE)
 		{
-			gpio->CRH &= ~(1 << (POLHAL::PINPOS[pinNumber]) | 1 << (POLHAL::PINPOS[pinNumber]) + 1);
+			gpio->CRH &= ~(1 << (PINPOS[pinNumber]) | 1 << (PINPOS[pinNumber]) + 1);
 		}
 		else
 		{
-			gpio->CRH |= (pinSpeed << (POLHAL::PINPOS[pinNumber]));
+			gpio->CRH |= (pinSpeed << (PINPOS[pinNumber]));
 		}
 	}
 	else
 	{
-		if (mode == INPUT_MODE)
+		if (modeType == INPUT_MODE)
 		{
-			gpio->CRL &= ~(1 << (POLHAL::PINPOS[pinNumber]) | 1 << (POLHAL::PINPOS[pinNumber]) + 1);
+			gpio->CRL &= ~(1 << (PINPOS[pinNumber]) | 1 << (PINPOS[pinNumber]) + 1);
 		}
 		else
 		{
-			gpio->CRL |= (pinSpeed << (POLHAL::PINPOS[pinNumber]));
+			gpio->CRL |= (pinSpeed << (PINPOS[pinNumber]));
 		}
 	}
 }
 
-void gpio_write(GPIO_TypeDef *gpio, uint32_t pinNumber, uint32_t state)
+void POLHAL::gpio_write(GPIO_TypeDef *gpio, uint32_t pinNumber, uint32_t state)
 {
 	if (state == HIGH)
 	{
@@ -132,7 +142,7 @@ void gpio_write(GPIO_TypeDef *gpio, uint32_t pinNumber, uint32_t state)
 	}
 }
 
-void gpio_toggle(GPIO_TypeDef *gpio, uint32_t pinNumber)
+void POLHAL::gpio_toggle(GPIO_TypeDef *gpio, uint32_t pinNumber)
 {
 	gpio->ODR ^= 1 << pinNumber;
 }

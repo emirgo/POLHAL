@@ -1,14 +1,44 @@
 /*
- * POLHAL.h
- *
- *  Created on: Aug 12, 2020
- *      Author: heurisitk
- */
+	Copyright 2020 Emirhan Gocturk
+
+	This program is free software: you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+
+	You should have received a copy of the GNU General Public License
+	along with this program.  If not, see <https://www.gnu.org/licenses/>.
+*/
 
 #ifndef POLHAL_H_
 #define POLHAL_H_
 
 #include "stm32f1xx.h"
+
+// TODO: Better ways
+constexpr uint32_t PINPOS[16] = {
+					(0x00),
+					(0x04),
+					(0x08),
+					(0x0C),
+					(0x10),
+					(0x14),
+					(0x18),
+					(0x1C),
+					(0x00),
+					(0x04),
+					(0x08),
+					(0x0C),
+					(0x10),
+					(0x14),
+					(0x18),
+					(0x1C)
+		};
 
 // Signal definitions
 #define HIGH	1
@@ -45,54 +75,34 @@
 // +2 or +3 to offset of the first bit of mode
 // you can manipulate CNF bits
 // TODO: Fix :)
-#define CNF_POS_BIT1	(POLHAL::PINPOS[pinNumber] + 2)
-#define CNF_POS_BIT2	(POLHAL::PINPOS[pinNumber] + 3)
-
-// GPIO Config structure
-typedef struct
-{
-	GPIO_TypeDef *gpio;
-	uint32_t pin;
-	uint32_t mode;
-	uint32_t mode_type;
-	uint32_t pull;
-	uint32_t speed;
-	uint32_t alt_func;
-} GPIO_TYPE;
+#define CNF_POS_BIT1 	(PINPOS[pinNumber] + 2)
+#define CNF_POS_BIT2	(PINPOS[pinNumber] + 3)
 
 class POLHAL {
 public:
+	// GPIO Config structure
+	typedef struct
+	{
+		GPIO_TypeDef *gpio;
+		uint32_t pin;
+		uint32_t mode;
+		uint32_t mode_type;
+		uint32_t pull;
+		uint32_t speed;
+		uint32_t alt_func;
+	} GPIO_TYPE;
 
-
+public:
 	POLHAL();
 	virtual ~POLHAL();
 
-	static void gpio_init(GPIO_TYPE gpioType);
+	static void gpio_init(POLHAL::GPIO_TYPE gpioType);
 	static void configure_pin(GPIO_TypeDef *gpio, uint32_t pinNumber, uint32_t mode);
-	static void config_pin_speed(GPIO_TypeDef *gpio, uint32_t pinNumber, uint32_t pinSpeed, uint32_t mode);
+	static void config_pin_speed(GPIO_TypeDef *gpio, uint32_t pinNumber, uint32_t pinSpeed, uint32_t modeType);
 
 	static void gpio_write(GPIO_TypeDef *gpio, uint32_t pinNumber, uint32_t state);
 	static void gpio_toggle(GPIO_TypeDef *gpio, uint32_t pinNumber);
 
-public:
-	static constexpr uint32_t PINPOS[16] = {
-					(0x00),
-					(0x04),
-					(0x08),
-					(0x0C),
-					(0x10),
-					(0x14),
-					(0x18),
-					(0x1C),
-					(0x00),
-					(0x04),
-					(0x08),
-					(0x0C),
-					(0x10),
-					(0x14),
-					(0x18),
-					(0x1C)
-		};
 
 private:
 
