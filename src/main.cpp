@@ -21,21 +21,21 @@
 
 int main(void)
 {
-	POLHAL::GPIO_TYPE gpioType;
-	gpioType.gpio = GPIOC;
-	gpioType.pin = 13;
-	gpioType.mode = OUTPUT_MODE;
-	gpioType.mode_type = OUTPUT_GENERAL_PURPOSE;
-	gpioType.speed = SPEED_50MHZ;
+	POLHAL::GPIO_TYPE led_green;
+	led_green.gpio = GPIOC;
+	led_green.pin = 13;
+	led_green.mode = OUTPUT_MODE;
+	led_green.mode_type = OUTPUT_GENERAL_PURPOSE;
+	led_green.speed = SPEED_50MHZ;
 
-	POLHAL::gpio_init(gpioType);
+	POLHAL::gpio_init(led_green);
 
 	volatile int i = 0;
+	volatile int speed = 0xffff;
 
 	while (1)
 	{
-		POLHAL::gpio_toggle(gpioType.gpio, gpioType.pin);
-		for(i = 0; i < 0xffff; i++);
-
+		POLHAL::gpio_toggle(led_green.gpio, led_green.pin);
+		for(i = 0; i < speed; i++);
 	}
 }

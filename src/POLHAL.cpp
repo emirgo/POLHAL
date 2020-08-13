@@ -26,34 +26,34 @@ POLHAL::~POLHAL() {
 	// TODO Auto-generated destructor stub
 }
 
-void POLHAL::gpio_init(GPIO_TYPE gpioType)
+void POLHAL::gpio_init(GPIO_TYPE gpio_type)
 {
-	if (gpioType.gpio == GPIOA)
+	if (gpio_type.gpio == GPIOA)
 	{
 		GPIO_CLOCK_ENABLE_GPIOA;
 	}
-	else if (gpioType.gpio == GPIOB)
+	else if (gpio_type.gpio == GPIOB)
 	{
 		GPIO_CLOCK_ENABLE_GPIOB;
 	}
-	else if (gpioType.gpio == GPIOC)
+	else if (gpio_type.gpio == GPIOC)
 	{
 		GPIO_CLOCK_ENABLE_GPIOC;
 	}
-	else if (gpioType.gpio == GPIOD)
+	else if (gpio_type.gpio == GPIOD)
 	{
 		GPIO_CLOCK_ENABLE_GPIOD;
 	}
 
-	configure_pin(gpioType.gpio, gpioType.pin, gpioType.mode);
+	configure_pin(gpio_type.gpio, gpio_type.pin, gpio_type.mode);
 
-	config_pin_speed(gpioType.gpio, gpioType.pin, gpioType.speed, gpioType.mode_type);
+	config_pin_speed(gpio_type.gpio, gpio_type.pin, gpio_type.speed, gpio_type.mode_type);
 }
 
-void POLHAL::configure_pin(GPIO_TypeDef *gpio, uint32_t pinNumber, uint32_t mode)
+void POLHAL::configure_pin(GPIO_TypeDef *gpio, uint32_t pin_number, uint32_t mode)
 {
 	// Control high register
-	if (pinNumber >= 8)
+	if (pin_number >= 8)
 	{
 		switch(mode)
 		{
@@ -100,41 +100,41 @@ void POLHAL::configure_pin(GPIO_TypeDef *gpio, uint32_t pinNumber, uint32_t mode
 	}
 }
 
-void POLHAL::config_pin_speed(GPIO_TypeDef *gpio, uint32_t pinNumber, uint32_t pinSpeed, uint32_t modeType)
+void POLHAL::config_pin_speed(GPIO_TypeDef *gpio, uint32_t pin_number, uint32_t pin_speed, uint32_t mode_type)
 {
-	if (pinNumber >= 8)
+	if (pin_number >= 8)
 	{
-		if (modeType == INPUT_MODE)
+		if (mode_type == INPUT_MODE)
 		{
-			gpio->CRH &= ~(1 << (PINPOS[pinNumber]) | 1 << (PINPOS[pinNumber]) + 1);
+			gpio->CRH &= ~(1 << (PINPOS[pin_number]) | 1 << (PINPOS[pin_number]) + 1);
 		}
 		else
 		{
-			gpio->CRH |= (pinSpeed << (PINPOS[pinNumber]));
+			gpio->CRH |= (pin_speed << (PINPOS[pin_number]));
 		}
 	}
 	else
 	{
-		if (modeType == INPUT_MODE)
+		if (mode_type == INPUT_MODE)
 		{
-			gpio->CRL &= ~(1 << (PINPOS[pinNumber]) | 1 << (PINPOS[pinNumber]) + 1);
+			gpio->CRL &= ~(1 << (PINPOS[pin_number]) | 1 << (PINPOS[pin_number]) + 1);
 		}
 		else
 		{
-			gpio->CRL |= (pinSpeed << (PINPOS[pinNumber]));
+			gpio->CRL |= (pin_speed << (PINPOS[pin_number]));
 		}
 	}
 }
 
-void POLHAL::gpio_write(GPIO_TypeDef *gpio, uint32_t pinNumber, uint32_t state)
+void POLHAL::gpio_write(GPIO_TypeDef *gpio, uint32_t pin_number, uint32_t state)
 {
 	if (state == HIGH)
 	{
-		gpio->BSRR |= 1 << pinNumber;
+		gpio->BSRR |= 1 << pin_number;
 	}
 	else if (state == LOW)
 	{
-		gpio->BSRR |= 1 << (pinNumber + 16);
+		gpio->BSRR |= 1 << (pin_number + 16);
 	}
 	else
 	{
@@ -142,7 +142,7 @@ void POLHAL::gpio_write(GPIO_TypeDef *gpio, uint32_t pinNumber, uint32_t state)
 	}
 }
 
-void POLHAL::gpio_toggle(GPIO_TypeDef *gpio, uint32_t pinNumber)
+void POLHAL::gpio_toggle(GPIO_TypeDef *gpio, uint32_t pin_number)
 {
-	gpio->ODR ^= 1 << pinNumber;
+	gpio->ODR ^= 1 << pin_number;
 }

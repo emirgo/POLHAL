@@ -22,23 +22,23 @@
 
 // TODO: Better ways
 constexpr uint32_t PINPOS[16] = {
-					(0x00),
-					(0x04),
-					(0x08),
-					(0x0C),
-					(0x10),
-					(0x14),
-					(0x18),
-					(0x1C),
-					(0x00),
-					(0x04),
-					(0x08),
-					(0x0C),
-					(0x10),
-					(0x14),
-					(0x18),
-					(0x1C)
-		};
+		(0x00),
+		(0x04),
+		(0x08),
+		(0x0C),
+		(0x10),
+		(0x14),
+		(0x18),
+		(0x1C),
+		(0x00),
+		(0x04),
+		(0x08),
+		(0x0C),
+		(0x10),
+		(0x14),
+		(0x18),
+		(0x1C)
+};
 
 // Signal definitions
 #define HIGH	1
@@ -74,11 +74,14 @@ constexpr uint32_t PINPOS[16] = {
 // High bit positions for CRH, when you add
 // +2 or +3 to offset of the first bit of mode
 // you can manipulate CNF bits
-// TODO: Fix :)
-#define CNF_POS_BIT1 	(PINPOS[pinNumber] + 2)
-#define CNF_POS_BIT2	(PINPOS[pinNumber] + 3)
+#define CNF_POS_BIT1 	(PINPOS[pin_number] + 2)
+#define CNF_POS_BIT2	(PINPOS[pin_number] + 3)
 
 class POLHAL {
+public:
+	POLHAL();
+	virtual ~POLHAL();
+
 public:
 	// GPIO Config structure
 	typedef struct
@@ -93,15 +96,12 @@ public:
 	} GPIO_TYPE;
 
 public:
-	POLHAL();
-	virtual ~POLHAL();
+	static void gpio_init(POLHAL::GPIO_TYPE gpio_type);
+	static void configure_pin(GPIO_TypeDef *gpio, uint32_t pin_number, uint32_t mode);
+	static void config_pin_speed(GPIO_TypeDef *gpio, uint32_t pin_number, uint32_t pin_speed, uint32_t mode_type);
 
-	static void gpio_init(POLHAL::GPIO_TYPE gpioType);
-	static void configure_pin(GPIO_TypeDef *gpio, uint32_t pinNumber, uint32_t mode);
-	static void config_pin_speed(GPIO_TypeDef *gpio, uint32_t pinNumber, uint32_t pinSpeed, uint32_t modeType);
-
-	static void gpio_write(GPIO_TypeDef *gpio, uint32_t pinNumber, uint32_t state);
-	static void gpio_toggle(GPIO_TypeDef *gpio, uint32_t pinNumber);
+	static void gpio_write(GPIO_TypeDef *gpio, uint32_t pin_number, uint32_t state);
+	static void gpio_toggle(GPIO_TypeDef *gpio, uint32_t pin_number);
 
 
 private:
