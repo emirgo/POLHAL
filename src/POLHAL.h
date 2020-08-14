@@ -95,15 +95,25 @@ public:
 		uint32_t alt_func;
 	} GPIO_TYPE;
 
+	typedef enum
+	{
+		RISING_EDGE,
+		FALLING_EDGE,
+		RISING_FALLING_EDGE
+	} edge_select;
+
 public:
+	// GPIO Configuration
 	static void gpio_init(POLHAL::GPIO_TYPE gpio_type);
 	static void configure_pin(GPIO_TypeDef *gpio, uint32_t pin_number, uint32_t mode);
 	static void config_pin_speed(GPIO_TypeDef *gpio, uint32_t pin_number, uint32_t pin_speed, uint32_t mode_type);
 
+	// GPIO Pin Functions
 	static void gpio_write(GPIO_TypeDef *gpio, uint32_t pin_number, uint32_t state);
 	static void gpio_toggle(GPIO_TypeDef *gpio, uint32_t pin_number);
 
-
+	// Interrupts
+	static void configure_gpio_interrupt(GPIO_TypeDef *gpio, uint32_t pin_number, edge_select edge);
 private:
 
 

@@ -146,3 +146,8 @@ void POLHAL::gpio_toggle(GPIO_TypeDef *gpio, uint32_t pin_number)
 {
 	gpio->ODR ^= 1 << pin_number;
 }
+
+void POLHAL::configure_gpio_interrupt(GPIO_TypeDef *gpio, uint32_t pin_number, edge_select edge)
+{
+
+}
