@@ -18,46 +18,12 @@
 #ifndef POLHAL_H_
 #define POLHAL_H_
 
-#include "stm32f1xx.h"
+#include "stm32f4xx.h"
 
-// TODO: Better ways
-constexpr uint32_t PINPOS[16] = {
-		(0x00),
-		(0x04),
-		(0x08),
-		(0x0C),
-		(0x10),
-		(0x14),
-		(0x18),
-		(0x1C),
-		(0x00),
-		(0x04),
-		(0x08),
-		(0x0C),
-		(0x10),
-		(0x14),
-		(0x18),
-		(0x1C)
-};
-
+// TODO: Find better ways than symbolic definitions
 // Signal definitions
 #define HIGH	1
 #define LOW		0
-
-// Pin mode
-#define OUTPUT_MODE		((uint32_t) 0x01)
-#define INPUT_MODE		((uint32_t) 0x02)
-
-// Input mode type
-#define INPUT_ANALOG	((uint32_t) 0x00)
-#define INPUT_FLOATING	((uint32_t) 0x01)
-#define INPUT_PU_PD		((uint32_t) 0x02)
-
-// Output mode type
-#define OUTPUT_GENERAL_PURPOSE			((uint32_t) 0x00)
-#define OUTPUT_OPEN_DRAIN				((uint32_t) 0x01)
-#define OUTPUT_ALT_FUNCTION				((uint32_t) 0x02)
-#define OUTPUT_ALT_FUNCTION_OPEN_DRAIN	((uint32_t) 0x03)
 
 // Pin speeds
 #define SPEED_2MHZ		((uint32_t) 0x02)
@@ -65,11 +31,14 @@ constexpr uint32_t PINPOS[16] = {
 #define SPEED_50MHZ		((uint32_t) 0x03)
 
 // Clock enable
-#define GPIO_CLOCK_ENABLE_ALT_FUNCTION	(RCC->APB2ENR |= (1 << 0))
-#define GPIO_CLOCK_ENABLE_GPIOA			(RCC->APB2ENR |= (1 << 2))
-#define GPIO_CLOCK_ENABLE_GPIOB			(RCC->APB2ENR |= (1 << 3))
-#define GPIO_CLOCK_ENABLE_GPIOC			(RCC->APB2ENR |= (1 << 4))
-#define GPIO_CLOCK_ENABLE_GPIOD			(RCC->APB2ENR |= (1 << 5))
+#define GPIO_CLOCK_ENABLE_GPIOA			(RCC->AHB1ENR |= (1 << 0))
+#define GPIO_CLOCK_ENABLE_GPIOB			(RCC->AHB1ENR |= (1 << 1))
+#define GPIO_CLOCK_ENABLE_GPIOC			(RCC->AHB1ENR |= (1 << 2))
+#define GPIO_CLOCK_ENABLE_GPIOD			(RCC->AHB1ENR |= (1 << 3))
+#define GPIO_CLOCK_ENABLE_GPIOE			(RCC->AHB1ENR |= (1 << 4))
+#define GPIO_CLOCK_ENABLE_GPIOF			(RCC->AHB1ENR |= (1 << 5))
+#define GPIO_CLOCK_ENABLE_GPIOG			(RCC->AHB1ENR |= (1 << 6))
+#define GPIO_CLOCK_ENABLE_GPIOH			(RCC->AHB1ENR |= (1 << 7))
 
 // High bit positions for CRH, when you add
 // +2 or +3 to offset of the first bit of mode
@@ -83,26 +52,51 @@ public:
 	virtual ~POLHAL();
 
 public:
+	// GPIO Modes
+	typedef enum
+	{
+		INPUT_MODE = 0x00,
+		OUTPUT_MODE = 0x01,
+		ALTERNATE_FUNCTION = 0x10,
+		ANALOG_MODE = 0x11
+	} GPIO_MODE;
+
+	// Output type
+	typedef enum
+	{
+		PUSH_PULL = 0,
+		OPEN_DRAIN
+	} GPIO_OUTPUT_TYPE;
+
+	typedef enum
+	{
+		LOW_SPEED = 0,
+		MEDIUM_SPEED,
+		FAST_SPEED,
+		HIGH_SPEED
+	} GPIO_OUTPUT_SPEED;
+
 	// GPIO Config structure
 	typedef struct
 	{
 		GPIO_TypeDef *gpio;
 		uint32_t pin;
-		uint32_t mode;
-		uint32_t mode_type;
-		uint32_t pull;
-		uint32_t speed;
-		uint32_t alt_func;
+		GPIO_MODE mode;
+		GPIO_OUTPUT_TYPE output_type;
+		GPIO_OUTPUT_SPEED speed;
 	} GPIO_TYPE;
 
 public:
 	static void gpio_init(POLHAL::GPIO_TYPE gpio_type);
-	static void configure_pin(GPIO_TypeDef *gpio, uint32_t pin_number, uint32_t mode);
-	static void config_pin_speed(GPIO_TypeDef *gpio, uint32_t pin_number, uint32_t pin_speed, uint32_t mode_type);
+	static void configure_pin(GPIO_TypeDef *gpio, uint32_t pin_number, POLHAL::GPIO_MODE mode, POLHAL::GPIO_OUTPUT_TYPE gpio_output_type);
+	static void config_pin_speed(GPIO_TypeDef *gpio, uint32_t pin_number, POLHAL::GPIO_OUTPUT_SPEED gpio_output_speed);
 
 	static void gpio_write(GPIO_TypeDef *gpio, uint32_t pin_number, uint32_t state);
 	static void gpio_toggle(GPIO_TypeDef *gpio, uint32_t pin_number);
 
+public:
+	void gpio_set_mode(GPIO_TypeDef *gpio, uint32_t pin_number, GPIO_MODE mode);
+	void configure_output_type(GPIO_TypeDef *gpio, uint32_t pin_number, POLHAL::GPIO_OUTPUT_TYPE gpio_output_type);
 
 private:
 

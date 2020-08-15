@@ -45,84 +45,76 @@ void POLHAL::gpio_init(GPIO_TYPE gpio_type)
 		GPIO_CLOCK_ENABLE_GPIOD;
 	}
 
-	configure_pin(gpio_type.gpio, gpio_type.pin, gpio_type.mode);
-
-	config_pin_speed(gpio_type.gpio, gpio_type.pin, gpio_type.speed, gpio_type.mode_type);
+	configure_pin(gpio_type.gpio, gpio_type.pin, gpio_type.mode, gpio_type.output_type);
+	config_pin_speed(gpio_type.gpio, gpio_type.pin, gpio_type.speed);
+	//config_pin_speed(gpio_type.gpio, gpio_type.pin, gpio_type.speed, gpio_type.mode_type);
 }
 
-void POLHAL::configure_pin(GPIO_TypeDef *gpio, uint32_t pin_number, uint32_t mode)
+void POLHAL::configure_pin(GPIO_TypeDef *gpio, uint32_t pin_number, POLHAL::GPIO_MODE mode, POLHAL::GPIO_OUTPUT_TYPE gpio_output_type)
 {
-	// Control high register
-	if (pin_number >= 8)
+	POLHAL polhal;
+	polhal.gpio_set_mode(gpio, pin_number, mode);
+	polhal.configure_output_type(gpio, pin_number, gpio_output_type);
+}
+
+void POLHAL::gpio_set_mode(GPIO_TypeDef *gpio, uint32_t pin_number, POLHAL::GPIO_MODE mode)
+{
+	switch (mode)
 	{
-		switch(mode)
-		{
-			case OUTPUT_GENERAL_PURPOSE:
-				gpio->CRH &= ~((1 << CNF_POS_BIT1) | (1 << CNF_POS_BIT2));
-			break;
+		case POLHAL::GPIO_MODE::INPUT_MODE:
+			// Default
+		break;
 
-			case OUTPUT_OPEN_DRAIN | INPUT_FLOATING:
-				gpio->CRH &= ~(1 << CNF_POS_BIT2);
-				gpio->CRH |= (1 << CNF_POS_BIT1);
-			break;
+		case POLHAL::GPIO_MODE::OUTPUT_MODE:
+			gpio->MODER |= 1 << pin_number;
+		break;
 
-			case OUTPUT_ALT_FUNCTION | INPUT_PU_PD:
-				gpio->CRH |= OUTPUT_ALT_FUNCTION << (CNF_POS_BIT1);
-			break;
+		case POLHAL::GPIO_MODE::ALTERNATE_FUNCTION:
+			gpio->MODER |= 1 << (pin_number + 1);
+		break;
 
-			case OUTPUT_ALT_FUNCTION_OPEN_DRAIN:
-				gpio->CRH |= OUTPUT_ALT_FUNCTION_OPEN_DRAIN << (CNF_POS_BIT1);
-			break;
-		}
-	}
-	// Control low register
-	else
-	{
-		switch (mode)
-		{
-			case OUTPUT_GENERAL_PURPOSE:
-				gpio->CRL &= ~((1 << CNF_POS_BIT1) | (1 << CNF_POS_BIT2));
-			break;
+		case POLHAL::GPIO_MODE::ANALOG_MODE:
+			gpio->MODER |= (1 << pin_number) | (1 << (pin_number + 1));
+		break;
 
-			case OUTPUT_OPEN_DRAIN | INPUT_FLOATING:
-				gpio->CRL &= ~(1 << CNF_POS_BIT2);
-				gpio->CRL |= (1 << CNF_POS_BIT1);
-			break;
-
-			case OUTPUT_ALT_FUNCTION | INPUT_PU_PD:
-				gpio->CRL |= OUTPUT_ALT_FUNCTION << (CNF_POS_BIT1);
-			break;
-
-			case OUTPUT_ALT_FUNCTION_OPEN_DRAIN:
-				gpio->CRL |= OUTPUT_ALT_FUNCTION_OPEN_DRAIN << (CNF_POS_BIT1);
-			break;
-		}
+		default:
+			// Error TODO: error handling
+		break;
 	}
 }
 
-void POLHAL::config_pin_speed(GPIO_TypeDef *gpio, uint32_t pin_number, uint32_t pin_speed, uint32_t mode_type)
+void POLHAL::configure_output_type(GPIO_TypeDef *gpio, uint32_t pin_number, POLHAL::GPIO_OUTPUT_TYPE gpio_output_type)
 {
-	if (pin_number >= 8)
+	if (gpio_output_type == POLHAL::GPIO_OUTPUT_TYPE::OPEN_DRAIN)
 	{
-		if (mode_type == INPUT_MODE)
-		{
-			gpio->CRH &= ~(1 << (PINPOS[pin_number]) | 1 << (PINPOS[pin_number]) + 1);
-		}
-		else
-		{
-			gpio->CRH |= (pin_speed << (PINPOS[pin_number]));
-		}
+		gpio->OTYPER |= 1 << pin_number;
 	}
 	else
 	{
-		if (mode_type == INPUT_MODE)
-		{
-			gpio->CRL &= ~(1 << (PINPOS[pin_number]) | 1 << (PINPOS[pin_number]) + 1);
-		}
-		else
-		{
-			gpio->CRL |= (pin_speed << (PINPOS[pin_number]));
-		}
+		// Do nothing
+		// By default push pull is active
+	}
+}
+
+void POLHAL::config_pin_speed(GPIO_TypeDef *gpio, uint32_t pin_number, POLHAL::GPIO_OUTPUT_SPEED gpio_output_speed)
+{
+	switch (gpio_output_speed)
+	{
+		case POLHAL::GPIO_OUTPUT_SPEED::LOW_SPEED:
+			// Default
+		break;
+
+		case POLHAL::GPIO_OUTPUT_SPEED::MEDIUM_SPEED:
+			gpio->OSPEEDR |= 1 << (pin_number * 2);
+		break;
+
+		case POLHAL::GPIO_OUTPUT_SPEED::FAST_SPEED:
+			gpio->OSPEEDR |= 1 << ((pin_number * 2) + 1);
+		break;
+
+		case POLHAL::GPIO_OUTPUT_SPEED::HIGH_SPEED:
+			gpio->OSPEEDR |= (1 << (pin_number * 2)) | (1 << ((pin_number * 2) + 1));
+		break;
 	}
 }
 
